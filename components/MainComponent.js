@@ -1,17 +1,26 @@
+import React, { Component } from "react";
 import About from "./AboutComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
 import Contact from "./ContactComponent";
 import Directory from "./DirectoryComponent";
 import Home from "./HomeComponent";
 import Constants from "expo-constants";
-import React, { Component } from "react";
 import { View, Platform, StyleSheet, Text, ScrollView, Image } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { createStackNavigator } from "react-navigation-stack";
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
-
+import { connect } from 'react-redux';
+import { fetchCampsites, fetchComments, fetchPromotions,
+    fetchPartners } from '../redux/ActionCreators';
+    
+const mapDispatchToProps = {
+      fetchCampsites,
+      fetchComments,
+      fetchPromotions,
+      fetchPartners
+  };
 
 const AboutNavigator = createStackNavigator(
     {
@@ -195,6 +204,14 @@ const MainNavigator = createDrawerNavigator(
 const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
+
+  componentDidMount() {
+    this.props.fetchCampsites();
+    this.props.fetchComments();
+    this.props.fetchPromotions();
+    this.props.fetchPartners();
+}
+
   render() {
     return (
       <View
@@ -238,4 +255,4 @@ drawerImage: {
   }
 });
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);
