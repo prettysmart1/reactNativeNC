@@ -39,7 +39,7 @@ class Reservation extends Component {
                         style={styles.formItem}
                         selectedValue={this.state.campers}
                         onValueChange={itemValue => this.setState({campers: itemValue})}
-                    >
+                    > 
                         <Picker.Item label='1' value='1' />
                         <Picker.Item label='2' value='2' />
                         <Picker.Item label='3' value='3' />
